@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>木头和瑶瑶的旅行日记</title>
+  <meta name="description" content="旅行 · 随笔" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <!-- 简单 favicon -->
+  <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/">YourName</a>
+      <nav class="nav">
+        <a href="#gallery">作品</a>
+        <a href="#notes">随笔</a>
+        <a href="#about">关于</a>
+        <a href="#contact" class="btn-outline">联系</a>
+      </nav>
+      <button class="menu-toggle" aria-label="菜单">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-text">
+          <h1>摄影 • 随笔 • 项目</h1>
+          <p class="lead">用镜头记录世界，用文字梳理思路。欢迎来到我们的小站。</p>
+          <p>
+            <a href="#gallery" class="btn">查看作品</a>
+            <a href="#notes" class="btn btn-light">阅读随笔</a>
+          </p>
+        </div>
+        <div class="hero-image">
+          <img src="assets/photo1.jpg" alt="hero photo">
+        </div>
+      </div>
+    </section>
+
+    <section id="gallery" class="container section">
+      <h2 class="section-title">精选作品</h2>
+      <p class="muted">点击图片查看大图 · 拖拽即可上传更多到 assets/</p>
+
+      <div class="grid">
+        <!-- 把下面的图片替换成你 assets/ 里的文件名 -->
+        <figure class="grid-item"><img src="assets/photo1.jpg" alt=""><figcaption>城市夜景</figcaption></figure>
+        <figure class="grid-item"><img src="assets/photo2.jpg" alt=""><figcaption>人像</figcaption></figure>
+        <figure class="grid-item"><img src="assets/photo3.jpg" alt=""><figcaption>街头瞬间</figcaption></figure>
+        <figure class="grid-item"><img src="assets/photo4.jpg" alt=""><figcaption>风光</figcaption></figure>
+      </div>
+    </section>
+
+    <section id="notes" class="container section">
+      <h2 class="section-title">随笔 / 博客</h2>
+      <div class="posts">
+        <!-- 用 Markdown 页面（posts/*.md）做文章，再手动在此链接到对应 .html / .md -->
+        <article class="post">
+          <h3><a href="posts/why-i-love-photo.md">我为什么喜欢摄影</a></h3>
+          <p class="muted">2025-11-27 · hello world!。</p>
+        </article>
+
+        <article class="post">
+          <h3><a href="posts/ahb-ram.md">学习记录</a></h3>
+          <p class="muted">项目笔记：OKR实践。</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="about" class="container section">
+      <h2 class="section-title">关于我</h2>
+      <div class="card">
+        <p>嗨，我是 <strong>YourName</strong>，一名芯片验证学习者 / 摄影爱好者。这个站记录我的摄影作品与学习笔记。如果你也喜欢摄影或验证技术，欢迎来聊。</p>
+      </div>
+    </section>
+
+    <section id="contact" class="container section">
+      <h2 class="section-title">联系我</h2>
+      <p>邮箱：<a href="mailto:you@example.com">you@example.com</a> · Github: <a href="https://github.com/你的用户名">你的用户名</a></p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span id="year"></span> YourName · Built with GitHub Pages</p>
+    </div>
+  </footer>
+
+  <!-- 简单 Lightbox（无需外部库） -->
+  <div id="lightbox" class="lightbox" aria-hidden="true">
+    <button class="close" aria-label="关闭">✕</button>
+    <img class="lightbox-img" src="" alt="">
+    <p class="lightbox-caption"></p>
+  </div>
+
+<script>
+  // footer 年份
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // responsive menu
+  document.querySelector('.menu-toggle').addEventListener('click', () => {
+    document.querySelector('.nav').classList.toggle('open');
+  });
+
+  // lightbox
+  const lb = document.getElementById('lightbox');
+  const lbimg = lb.querySelector('.lightbox-img');
+  const lbcap = lb.querySelector('.lightbox-caption');
+  document.querySelectorAll('.grid-item img').forEach(img => {
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', () => {
+      lbimg.src = img.src;
+      lbcap.textContent = img.closest('figure').querySelector('figcaption')?.textContent || '';
+      lb.classList.add('open');
+      lb.setAttribute('aria-hidden','false');
+    });
+  });
+  document.querySelector('#lightbox .close').addEventListener('click', () => {
+    lb.classList.remove('open');
+    lb.setAttribute('aria-hidden','true');
+  });
+  lb.addEventListener('click', (e) => {
+    if (e.target === lb) { lb.classList.remove('open'); lb.setAttribute('aria-hidden','true'); }
+  });
+</script>
+</body>
+</html>
